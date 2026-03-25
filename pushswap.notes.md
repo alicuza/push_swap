@@ -4,9 +4,13 @@
 
 **allowed external functions:** `read`, `write`, `malloc`, `free`, `exit`
 
+**error handling:** question whether `errno` is allowed
+
 **global variables:** disallowed
 
-**input:** stack formatted as list of **integers**, with the first being the top of the stack
+**input:**
+- stack formatted as list of **integers**, with the first being the top of the stack
+- no limit on the amount of integers passed, use `size_t` for the number of nodes
 
 **return:**
 - on success: list of instructions as strings separated by `'\n'`
