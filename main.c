@@ -22,15 +22,17 @@ int	main(int argc, char **argv)
 	init_nodes();
 }
 
-t_env	init_env()
+t_env	init_env(int argc, char **argv)
 {
 	t_env	e;
 
 	e = (t_env){0};
 	env->node_cnt = argc - 1;
+
 	return (e);
 }
 
-void	init_nodes()
+void	init_nodes(int node_cnt)
 {
+	node = malloc((node_cnt + 1) * sizeof(t_node))
 }
