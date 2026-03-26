@@ -6,7 +6,7 @@
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 12:04:26 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/26 12:16:34 by sancuta          ###   ########.fr       */
+/*   Updated: 2026/03/26 12:21:38 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int argc, char **argv)
 	parse_argv(env, argv);
 }
 
-t_env	init_env(void)
+t_env	init_env(int argc, char **argv)
 {
 	t_env	e;
 
@@ -45,4 +45,11 @@ void	parse_argv(t_env *env, char **argv)
 	{
 		node[i].nbr = ft_atoi(argv[i]);
 	}
+	return (e);
+}
+
+void	init_nodes(t_env *env)
+{
+	env->node = malloc((env->node_cnt + 1) * sizeof(t_node));
+	ft_memset(env->node, 0, (env->node_cnt + 1) * sizeof(t_node));
 }
