@@ -6,7 +6,7 @@
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 11:47:24 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/26 10:53:14 by sancuta          ###   ########.fr       */
+/*   Updated: 2026/03/26 16:25:41 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 # define PUSH_SWAP_H
 
 # include "libft/libft.h"
-# include "arena/arena.h"
+# include "libft/arena/arena.h"
+# include <limits.h>
 
 typedef size_t head;
 typedef size_t idx;
@@ -28,10 +29,9 @@ typedef struct s_node
 
 typedef struct s_env
 {
-	t_node	node;
+	t_node	*node;
 	head	stack_a;
 	head	stack_b;
-	size_t	node_cnt;
 }	t_env;
 
 #endif

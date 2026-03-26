@@ -6,7 +6,7 @@
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 09:41:35 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/21 23:47:27 by sancuta          ###   ########.fr       */
+/*   Updated: 2026/03/26 16:26:09 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define ARENA_H
 
 # include <stdlib.h>
-# include "../libft/libft.h"
+# include "../libft.h"
 
 typedef struct s_arena
 {

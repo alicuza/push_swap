@@ -6,12 +6,12 @@
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 08:36:13 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/22 13:02:31 by sancuta          ###   ########.fr       */
+/*   Updated: 2026/03/26 16:26:40 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "arena.h"
-#include "../libft/libft.h"
+#include "../libft.h"
 
 t_arena	arena_init(size_t size)
 {
