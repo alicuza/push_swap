@@ -1,37 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/25 11:47:24 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/26 10:53:14 by sancuta          ###   ########.fr       */
+/*   Created: 2025/10/13 16:13:29 by sancuta           #+#    #+#             */
+/*   Updated: 2025/10/20 16:33:46 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "libft.h"
 
-# include "libft/libft.h"
-# include "arena/arena.h"
-
-typedef size_t head;
-typedef size_t idx;
-
-typedef struct s_node
+char	*ft_substr(const char *s, unsigned int start, size_t len)
 {
-	idx	next_idx;
-	idx	prev_idx;
-	int	nbr;
-}	t_node;
+	char	*sub;
+	size_t	sub_len;
 
-typedef struct s_env
-{
-	t_node	node;
-	head	stack_a;
-	head	stack_b;
-	size_t	node_cnt;
-}	t_env;
-
-#endif
+	if (!s)
+		return (NULL);
+	if (ft_strlen(s) < (size_t)start)
+		return (ft_calloc(1, 1));
+	else
+		sub_len = ft_strlen(s) - (size_t)start;
+	if (sub_len > len)
+		sub_len = len;
+	sub = malloc(sub_len + 1);
+	if (!sub)
+		return (NULL);
+	ft_strlcpy(sub, s + start, sub_len + 1);
+	return (sub);
+}

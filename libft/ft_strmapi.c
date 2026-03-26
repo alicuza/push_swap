@@ -1,37 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/25 11:47:24 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/26 10:53:14 by sancuta          ###   ########.fr       */
+/*   Created: 2025/10/15 01:15:11 by sancuta           #+#    #+#             */
+/*   Updated: 2025/10/15 13:44:51 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "libft.h"
 
-# include "libft/libft.h"
-# include "arena/arena.h"
-
-typedef size_t head;
-typedef size_t idx;
-
-typedef struct s_node
+char	*ft_strmapi(const char *s, char (*f)(unsigned int, char))
 {
-	idx	next_idx;
-	idx	prev_idx;
-	int	nbr;
-}	t_node;
+	size_t	i;
+	size_t	len;
+	char	*fs;
 
-typedef struct s_env
-{
-	t_node	node;
-	head	stack_a;
-	head	stack_b;
-	size_t	node_cnt;
-}	t_env;
-
-#endif
+	if (!s || !f)
+		return (NULL);
+	len = ft_strlen(s);
+	fs = malloc(len + 1);
+	if (!fs)
+		return (NULL);
+	i = 0;
+	while (s[i])
+	{
+		fs[i] = f(i, s[i]);
+		i++;
+	}
+	fs[i] = '\0';
+	return (fs);
+}

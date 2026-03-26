@@ -1,37 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/25 11:47:24 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/26 10:53:14 by sancuta          ###   ########.fr       */
+/*   Created: 2025/09/29 16:44:51 by sancuta           #+#    #+#             */
+/*   Updated: 2025/09/29 19:32:36 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "libft.h"
 
-# include "libft/libft.h"
-# include "arena/arena.h"
-
-typedef size_t head;
-typedef size_t idx;
-
-typedef struct s_node
+void	*ft_memset(void *s, int c, size_t n)
 {
-	idx	next_idx;
-	idx	prev_idx;
-	int	nbr;
-}	t_node;
+	size_t	i;
 
-typedef struct s_env
-{
-	t_node	node;
-	head	stack_a;
-	head	stack_b;
-	size_t	node_cnt;
-}	t_env;
-
-#endif
+	i = 0;
+	while (i < n)
+	{
+		*((unsigned char *)s + i) = (unsigned char) c;
+		i++;
+	}
+	return (s);
+}

@@ -1,37 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/25 11:47:24 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/26 10:53:14 by sancuta          ###   ########.fr       */
+/*   Created: 2025/09/30 08:49:45 by sancuta           #+#    #+#             */
+/*   Updated: 2025/09/30 09:41:32 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "libft.h"
 
-# include "libft/libft.h"
-# include "arena/arena.h"
-
-typedef size_t head;
-typedef size_t idx;
-
-typedef struct s_node
+char	*ft_strdup(const char *s)
 {
-	idx	next_idx;
-	idx	prev_idx;
-	int	nbr;
-}	t_node;
+	size_t	size;
+	char	*dst;
 
-typedef struct s_env
-{
-	t_node	node;
-	head	stack_a;
-	head	stack_b;
-	size_t	node_cnt;
-}	t_env;
-
-#endif
+	size = ft_strlen(s) + 1;
+	dst = malloc(size);
+	if (!dst)
+		return (NULL);
+	ft_strlcpy(dst, s, size);
+	return (dst);
+}

@@ -1,37 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/25 11:47:24 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/26 10:53:14 by sancuta          ###   ########.fr       */
+/*   Created: 2025/10/15 18:12:30 by sancuta           #+#    #+#             */
+/*   Updated: 2025/10/15 18:36:49 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "libft.h"
 
-# include "libft/libft.h"
-# include "arena/arena.h"
-
-typedef size_t head;
-typedef size_t idx;
-
-typedef struct s_node
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	idx	next_idx;
-	idx	prev_idx;
-	int	nbr;
-}	t_node;
+	size_t	i;
 
-typedef struct s_env
-{
-	t_node	node;
-	head	stack_a;
-	head	stack_b;
-	size_t	node_cnt;
-}	t_env;
-
-#endif
+	if (!s || !f)
+		return ;
+	i = 0;
+	while (s[i])
+	{
+		f(i, s + i);
+		i++;
+	}
+	return ;
+}

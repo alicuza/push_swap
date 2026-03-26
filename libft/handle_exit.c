@@ -1,37 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   handle_exit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/25 11:47:24 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/26 10:53:14 by sancuta          ###   ########.fr       */
+/*   Created: 2026/03/21 20:24:18 by sancuta           #+#    #+#             */
+/*   Updated: 2026/03/26 12:10:28 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "libft.h"
 
-# include "libft/libft.h"
-# include "arena/arena.h"
-
-typedef size_t head;
-typedef size_t idx;
-
-typedef struct s_node
+void	handle_status_msg(char *prefix, char *name, char *message, int status)
 {
-	idx	next_idx;
-	idx	prev_idx;
-	int	nbr;
-}	t_node;
+	if (status)
+	{
+		ft_putstr_fd(prefix, 2);
+		ft_putstr_fd(": ", 2);
+		ft_putstr_fd(name, 2);
+		ft_putstr_fd(": ", 2);
+		ft_putstr_fd(message, 2);
+		ft_putstr_fd("\n", 2);
+	}
+}
 
-typedef struct s_env
+void	just_error(void)
 {
-	t_node	node;
-	head	stack_a;
-	head	stack_b;
-	size_t	node_cnt;
-}	t_env;
-
-#endif
+	write(2, "Error\n", 6);
+	exit(1);
+}
