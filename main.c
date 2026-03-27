@@ -6,7 +6,7 @@
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 12:04:26 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/26 20:07:43 by sancuta          ###   ########.fr       */
+/*   Updated: 2026/03/27 13:18:52 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ t_env	init_env(int argc)
 
 	env = (t_env){0};
 	init_nodes(&env, argc);
-	env.stack_a = 1;
-	env.stack_b = 0;
+	env.head_a = 1;
+	env.head_b = 0;
 	return (env);
 }
 int	validate_int(t_env *env, long n, int idx)
@@ -56,23 +56,23 @@ void	parse_argv(t_env *env, int argc, char **argv)
 	if (ft_strlen(argv[1]) > 12)
 		just_error();
 	env->node[1].nbr = validate_int(env, ft_atol(argv[1]), 1);
-	env->node[1].next_idx = 2;
-	env->node[1].prev_idx = argc;
+	env->node[1].next = 2;
+	env->node[1].prev = argc - 1;
 	i = 1;
 	while (++i < argc - 1)
 	{
 		if (ft_strlen(argv[i]) > 12)
 			just_error();
 		env->node[i].nbr = validate_int(env, ft_atol(argv[i]), i);
-		env->node[i].next_idx = i + 1;
-		env->node[i].prev_idx = i - 1;
+		env->node[i].next = i + 1;
+		env->node[i].prev = i - 1;
 	}
 	if (ft_strlen(argv[argc - 1]) > 12)
 		just_error();
 	env->node[argc - 1].nbr = validate_int(env, ft_atol(argv[argc - 1]),
 			argc - 1);
-	env->node[argc - 1].next_idx = 1;
-	env->node[argc - 1].prev_idx = argc - 1;
+	env->node[argc - 1].next = 1;
+	env->node[argc - 1].prev = argc - 2;
 }
 
 #include <stdio.h> // DEBUG
@@ -84,7 +84,16 @@ int	main(int argc, char **argv)
 		return (1);
 	env = init_env(argc);
 	parse_argv(&env, argc, argv);
+
+/*	printf("stack len = %zu\n", stack_len(env.node, env.head_a));
+	printf("stack len = %zu\n", stack_len(env.node, env.head_b));
 	for (int i = 0; i < argc; i++) // DEBUG
 		printf("node[%d] = %d\n", i, env.node[i].nbr); // DEBUG
+*/	
+	ft_printf("before swapping:\n");
+	print_stack(env.node, env.head_a);
+	sa(&env);
+	ft_printf("after swapping:\n");
+	print_stack(env.node, env.head_a);
 	return (0);
 }

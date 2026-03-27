@@ -6,7 +6,7 @@
 #    By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/26 16:11:32 by sancuta           #+#    #+#              #
-#    Updated: 2026/03/26 16:13:08 by sancuta          ###   ########.fr        #
+#    Updated: 2026/03/27 08:16:40 by sancuta          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,9 @@ NAME = push_swap
 CC = cc
 CFLAGS = -MMD -MP -Wall -Wextra -Werror
 LIBFT = ./libft/libft.a
-SRCS =	main.c
+SRCS =	main.c \
+		operations.c \
+		operation_helpers.c
 OBJS = $(SRCS:.c=.o)
 DEPS = $(SRCS:.c=.d)
 
