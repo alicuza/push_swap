@@ -6,7 +6,7 @@
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 12:04:26 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/27 13:18:52 by sancuta          ###   ########.fr       */
+/*   Updated: 2026/03/27 14:58:01 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,12 @@ int	main(int argc, char **argv)
 	sa(&env);
 	ft_printf("after swapping:\n");
 	print_stack(env.node, env.head_a);
+	ft_printf("before pushing to b:\n");
+	pb(&env);
+	ft_printf("after pushing to b:\n");
+	ft_printf("\tstack A:\n");
+	print_stack(env.node, env.head_a);
+	ft_printf("\tstack B:\n");
+	print_stack(env.node, env.head_b);
 	return (0);
 }

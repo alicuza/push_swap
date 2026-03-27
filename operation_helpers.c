@@ -6,7 +6,7 @@
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/27 08:03:37 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/27 13:10:25 by sancuta          ###   ########.fr       */
+/*   Updated: 2026/03/27 14:56:32 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,37 @@ void	swap(t_node *node, t_stack_idx *head)
 	*head = second;
 }
 
-/*void	push(t_node *node, t_stack_idx head_1, t_stack_idx head_2)
+void	push(t_node *node, t_stack_idx *dest, t_stack_idx *src)
 {
-	
-}*/
+	int			src_len;
+	int			dest_len;
+	t_stack_idx	pushed;
+
+	src_len = stack_len(node, *src);
+	dest_len = stack_len(node, *dest);
+	if (!src_len)
+		return ;
+	pushed = *src;
+	if (src_len == 1)
+		*src = 0;
+	else
+	{
+		node[node[*src].prev].next = node[*src].next;
+		node[node[*src].next].prev = node[*src].prev;
+		*src = node[*src].next;
+	}
+	if (!dest_len)
+	{
+		node[pushed].next = pushed;
+		node[pushed].prev = pushed;
+		*dest = pushed;
+	}
+	else
+	{
+		node[pushed].next = *dest;
+		node[pushed].prev = node[*dest].prev;
+		node[node[*dest].prev].next = pushed;
+		node[*dest].prev = pushed;
+		*dest = pushed;
+	}
+}

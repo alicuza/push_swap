@@ -6,7 +6,7 @@
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 11:47:24 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/27 13:19:04 by sancuta          ###   ########.fr       */
+/*   Updated: 2026/03/27 14:26:42 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,9 @@ size_t	stack_len(t_node *node, t_stack_idx head);
 void	print_stack(t_node *node, t_stack_idx head);
 void	swap(t_node *node, t_stack_idx *head);
 void	sa(t_env *env);
-
+void	sb(t_env *env);
+void	ss(t_env *env);
+void	push(t_node *node, t_stack_idx *dest, t_stack_idx *src);
+void	pa(t_env *env);
+void	pb(t_env *env);
 #endif
