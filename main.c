@@ -6,7 +6,7 @@
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 12:04:26 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/27 14:58:01 by sancuta          ###   ########.fr       */
+/*   Updated: 2026/03/27 17:03:21 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,23 @@ void	parse_argv(t_env *env, int argc, char **argv)
 	env->node[argc - 1].prev = argc - 2;
 }
 
+int	is_stack_sorted(t_env env, int argc)
+// TODO: consider replacing this function in main with a LIS (Longest Increasing
+// Subsequence) function if reasonable. If the LIS I find is as long as the
+// stack, I know the stack is sorted. Should I use LIS to also push from b to a?
+{
+	int	i;
+
+	i = 1;
+	while (i < argc)
+	{
+		if (env.node[i].nbr < env.node[i - 1].nbr)
+			return (0);
+		++i;
+	}
+	return (1);
+}
+
 #include <stdio.h> // DEBUG
 int	main(int argc, char **argv)
 {
@@ -84,23 +101,35 @@ int	main(int argc, char **argv)
 		return (1);
 	env = init_env(argc);
 	parse_argv(&env, argc, argv);
-
-/*	printf("stack len = %zu\n", stack_len(env.node, env.head_a));
-	printf("stack len = %zu\n", stack_len(env.node, env.head_b));
-	for (int i = 0; i < argc; i++) // DEBUG
-		printf("node[%d] = %d\n", i, env.node[i].nbr); // DEBUG
-*/	
-	ft_printf("before swapping:\n");
+//	for (int i = 0; i < argc; i++) // DEBUG
+//		printf("node[%d] = %d\n", i, env.node[i].nbr); // DEBUG
+	
+	ft_printf("stack is%ssorted\n", is_stack_sorted(env, argc) ? " " : " not ");
+	ft_printf("\nswapping a\n");
 	print_stack(env.node, env.head_a);
 	sa(&env);
-	ft_printf("after swapping:\n");
+	ft_printf("\nafter swapping:\n");
 	print_stack(env.node, env.head_a);
-	ft_printf("before pushing to b:\n");
+	ft_printf("\npushing to b\n");
+	printf("\nstack A len = %zu\n", stack_len(env.node, env.head_a));
+	printf("\nstack B len = %zu\n", stack_len(env.node, env.head_b));
 	pb(&env);
-	ft_printf("after pushing to b:\n");
-	ft_printf("\tstack A:\n");
+	ft_printf("\nafter pushing:\n");
+	printf("\nstack A len = %zu\n", stack_len(env.node, env.head_a));
+	printf("\nstack B len = %zu\n", stack_len(env.node, env.head_b));
+	ft_printf("\nstack A:\n\n");
 	print_stack(env.node, env.head_a);
-	ft_printf("\tstack B:\n");
+	ft_printf("\nstack B:\n\n");
 	print_stack(env.node, env.head_b);
+	ft_printf("\nexecuting: pb pb sa pb sb pa ss\n\n");
+	pb(&env), pb(&env), sa(&env), pb(&env), sb(&env), pa(&env), ss(&env);
+	ft_printf("\nafter operations:\n");
+	printf("\nstack A len = %zu\n", stack_len(env.node, env.head_a));
+	printf("\nstack B len = %zu\n", stack_len(env.node, env.head_b));
+	ft_printf("\nstack A:\n\n");
+	print_stack(env.node, env.head_a);
+	ft_printf("\nstack B:\n\n");
+	print_stack(env.node, env.head_b);
+
 	return (0);
 }
