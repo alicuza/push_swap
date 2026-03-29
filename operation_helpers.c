@@ -6,7 +6,7 @@
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/27 08:03:37 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/29 15:43:17 by sancuta          ###   ########.fr       */
+/*   Updated: 2026/03/29 15:57:29 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,17 +59,21 @@ void	swap(t_node *node, t_stack_idx *head)
 	len = stack_len(node, *head);
 	if (len < 2)
 		return ;
+/*	TODO: to be documented, how this check is unnecessary if the order
+	if the order of relinking is kept proper.
+	RULE: any line that writes through an aliased pointer
+	must come after all lines that read through it!
 	if (len == 2)
 	{
 		rotate(node, head);
 		return ;
 	}
-	first = *head;
+*/	first = *head;
 	second = node[first].next;
-	node[node[first].prev].next = second;
 	node[node[second].next].prev = first;
-	node[second].prev = node[first].prev;
 	node[first].next = node[second].next;
+	node[node[first].prev].next = second;
+	node[second].prev = node[first].prev;
 	node[second].next = first;
 	node[first].prev = second;
 	*head = second;
