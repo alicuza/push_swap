@@ -6,7 +6,7 @@
 #    By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/26 16:11:32 by sancuta           #+#    #+#              #
-#    Updated: 2026/03/27 08:16:40 by sancuta          ###   ########.fr        #
+#    Updated: 2026/03/29 13:16:27 by sancuta          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ CFLAGS = -MMD -MP -Wall -Wextra -Werror
 LIBFT = ./libft/libft.a
 SRCS =	main.c \
 		operations.c \
-		operation_helpers.c
+		operation_helpers.c \
+		cleanup.c
 OBJS = $(SRCS:.c=.o)
 DEPS = $(SRCS:.c=.d)
 

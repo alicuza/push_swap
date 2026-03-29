@@ -6,7 +6,7 @@
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/27 08:03:37 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/27 14:56:32 by sancuta          ###   ########.fr       */
+/*   Updated: 2026/03/29 15:43:17 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void print_stack(t_node *node, t_stack_idx head)
 
 	if (!stack_len(node, head))
 	{
-		write(1, "stack empty", 11);
+		ft_printf("stack empty\n");
 		return ;
 	}
 	cur = head;
@@ -54,9 +54,16 @@ void	swap(t_node *node, t_stack_idx *head)
 {
 	t_stack_idx	first;
 	t_stack_idx	second;
+	size_t		len;
 
-	if (stack_len(node, *head) < 2)
+	len = stack_len(node, *head);
+	if (len < 2)
 		return ;
+	if (len == 2)
+	{
+		rotate(node, head);
+		return ;
+	}
 	first = *head;
 	second = node[first].next;
 	node[node[first].prev].next = second;
@@ -68,37 +75,54 @@ void	swap(t_node *node, t_stack_idx *head)
 	*head = second;
 }
 
-void	push(t_node *node, t_stack_idx *dest, t_stack_idx *src)
+void	pop_node(t_node *node, t_stack_idx *src)
 {
-	int			src_len;
-	int			dest_len;
-	t_stack_idx	pushed;
+	size_t src_len;
 
 	src_len = stack_len(node, *src);
-	dest_len = stack_len(node, *dest);
 	if (!src_len)
 		return ;
-	pushed = *src;
 	if (src_len == 1)
+	{
 		*src = 0;
-	else
-	{
-		node[node[*src].prev].next = node[*src].next;
-		node[node[*src].next].prev = node[*src].prev;
-		*src = node[*src].next;
+		return ;
 	}
-	if (!dest_len)
+	node[node[*src].prev].next = node[*src].next;
+	node[node[*src].next].prev = node[*src].prev;
+	*src = node[*src].next;
+}
+
+void	push_node(t_node *node, t_stack_idx *dest, t_stack_idx src)
+{
+	if (!stack_len(node, *dest))
 	{
-		node[pushed].next = pushed;
-		node[pushed].prev = pushed;
-		*dest = pushed;
+		node[src].next = src;
+		node[src].prev = src;
+		*dest = src;
+		return ;
 	}
-	else
-	{
-		node[pushed].next = *dest;
-		node[pushed].prev = node[*dest].prev;
-		node[node[*dest].prev].next = pushed;
-		node[*dest].prev = pushed;
-		*dest = pushed;
-	}
+	node[src].next = *dest;
+	node[src].prev = node[*dest].prev;
+	node[node[*dest].prev].next = src;
+	node[*dest].prev = src;
+	*dest = src;
+}
+
+void	push(t_node *node, t_stack_idx *dest, t_stack_idx *src)
+{
+	t_stack_idx	target;
+
+	target = *src;
+	pop_node(node, src);
+	push_node(node, dest, target);
+}
+
+void	rotate(t_node *node, t_stack_idx *head)
+{
+	*head = node[*head].next;
+}
+
+void	reverse_rotate(t_node *node, t_stack_idx *head)
+{
+	*head = node[*head].prev;
 }

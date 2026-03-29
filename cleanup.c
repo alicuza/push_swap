@@ -1,31 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_exit.c                                      :+:      :+:    :+:   */
+/*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/21 20:24:18 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/29 13:32:26 by sancuta          ###   ########.fr       */
+/*   Created: 2026/03/29 13:16:37 by sancuta           #+#    #+#             */
+/*   Updated: 2026/03/29 13:38:40 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
-void	handle_status_msg(char *prefix, char *name, char *message, int status)
+void	cleanup(t_node *nodes)
 {
-	if (status)
+	if (nodes)
 	{
-		ft_putstr_fd(prefix, 2);
-		ft_putstr_fd(": ", 2);
-		ft_putstr_fd(name, 2);
-		ft_putstr_fd(": ", 2);
-		ft_putstr_fd(message, 2);
-		ft_putstr_fd("\n", 2);
+		free(nodes);
+		nodes = NULL;
 	}
-}
-
-void	just_error(void)
-{
-	write(2, "Error\n", 6);
+	just_error();
+	exit(1);
 }
