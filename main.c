@@ -6,7 +6,7 @@
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 12:04:26 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/29 15:08:53 by sancuta          ###   ########.fr       */
+/*   Updated: 2026/03/30 01:34:02 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	parse_argv(t_env *env, int argc, char **argv)
 {
 	int	i;
 
-	if (ft_strlen(argv[1]) > 12)
+	if (ft_strlen(argv[1]) > 12 || !ft_is_nbr_str(argv[1]))
 		cleanup(env->node);
 	env->node[1].nbr = validate_int(env, ft_atol(argv[1]), 1);
 	env->node[1].next = 2;
@@ -61,13 +61,13 @@ void	parse_argv(t_env *env, int argc, char **argv)
 	i = 1;
 	while (++i < argc - 1)
 	{
-		if (ft_strlen(argv[i]) > 12)
+		if (ft_strlen(argv[i]) > 12 || !ft_is_nbr_str(argv[i]))
 			cleanup(env->node);
 		env->node[i].nbr = validate_int(env, ft_atol(argv[i]), i);
 		env->node[i].next = i + 1;
 		env->node[i].prev = i - 1;
 	}
-	if (ft_strlen(argv[argc - 1]) > 12)
+	if (ft_strlen(argv[argc - 1]) > 12 || !ft_is_nbr_str(argv[argc - 1]))
 		cleanup(env->node);
 	env->node[argc - 1].nbr = validate_int(env, ft_atol(argv[argc - 1]),
 			argc - 1);
@@ -92,7 +92,7 @@ int	is_stack_sorted(t_env env, int argc)
 	return (1);
 }
 
-#include <stdio.h> // DEBUG
+//#include <stdio.h> // DEBUG
 int	main(int argc, char **argv)
 {
 	t_env	env;
@@ -101,101 +101,19 @@ int	main(int argc, char **argv)
 		return (1);
 	env = init_env(argc);
 	parse_argv(&env, argc, argv);
-
 	if (is_stack_sorted(env, argc))
-		cleanup(env.node);
-
-	ft_printf("stack is%ssorted\n", is_stack_sorted(env, argc) ? " " : " not ");
-/*
-	ft_printf("executing: pb pb sa pb sb pa ss pb\n\n");
-	pb(&env), pb(&env), sa(&env), pb(&env), sb(&env), pa(&env), ss(&env), pb(&env);
-	ft_printf("after operations:\n");
-	printf("stack A len = %zu\n", stack_len(env.node, env.head_a));
-	printf("stack B len = %zu\n", stack_len(env.node, env.head_b));
-	ft_printf("stack A:\n\n");
-	print_stack(env.node, env.head_a);
-	ft_printf("stack B:\n\n");
-	print_stack(env.node, env.head_b);
-*/
-	ft_printf("executing: pb\n\n");
-	pb(&env);
-	ft_printf("after operations:\n");
-	printf("stack A len = %zu\n", stack_len(env.node, env.head_a));
-	printf("stack B len = %zu\n", stack_len(env.node, env.head_b));
-	ft_printf("stack A:\n\n");
-	print_stack(env.node, env.head_a);
-	ft_printf("stack B:\n\n");
-	print_stack(env.node, env.head_b);
-
-	ft_printf("executing: rb\n\n");
-	rb(&env);
-	ft_printf("after operations:\n");
-	printf("stack A len = %zu\n", stack_len(env.node, env.head_a));
-	printf("stack B len = %zu\n", stack_len(env.node, env.head_b));
-	ft_printf("stack A:\n\n");
-	print_stack(env.node, env.head_a);
-	ft_printf("stack B:\n\n");
-	print_stack(env.node, env.head_b);
-
-	ft_printf("executing: sa\n\n");
-	sa(&env);
-	ft_printf("after operations:\n");
-	printf("stack A len = %zu\n", stack_len(env.node, env.head_a));
-	printf("stack B len = %zu\n", stack_len(env.node, env.head_b));
-	ft_printf("stack A:\n\n");
-	print_stack(env.node, env.head_a);
-	ft_printf("stack B:\n\n");
-	print_stack(env.node, env.head_b);
-
-	ft_printf("executing: ra\n\n");
-	ra(&env);
-	ft_printf("after operations:\n");
-	printf("stack A len = %zu\n", stack_len(env.node, env.head_a));
-	printf("stack B len = %zu\n", stack_len(env.node, env.head_b));
-	ft_printf("stack A:\n\n");
-	print_stack(env.node, env.head_a);
-	ft_printf("stack B:\n\n");
-	print_stack(env.node, env.head_b);
-
-	ft_printf("executing: pb\n\n");
-	pb(&env);
-	ft_printf("after operations:\n");
-	printf("stack A len = %zu\n", stack_len(env.node, env.head_a));
-	printf("stack B len = %zu\n", stack_len(env.node, env.head_b));
-	ft_printf("stack A:\n\n");
-	print_stack(env.node, env.head_a);
-	ft_printf("stack B:\n\n");
-	print_stack(env.node, env.head_b);
-
-	ft_printf("executing: sb\n\n");
-	sb(&env);
-	ft_printf("after operations:\n");
-	printf("stack A len = %zu\n", stack_len(env.node, env.head_a));
-	printf("stack B len = %zu\n", stack_len(env.node, env.head_b));
-	ft_printf("stack A:\n\n");
-	print_stack(env.node, env.head_a);
-	ft_printf("stack B:\n\n");
-	print_stack(env.node, env.head_b);
-
-	ft_printf("executing: rra\n\n");
-	rra(&env);
-	ft_printf("after operations:\n");
-	printf("stack A len = %zu\n", stack_len(env.node, env.head_a));
-	printf("stack B len = %zu\n", stack_len(env.node, env.head_b));
-	ft_printf("stack A:\n\n");
-	print_stack(env.node, env.head_a);
-	ft_printf("stack B:\n\n");
-	print_stack(env.node, env.head_b);
-
-	ft_printf("executing: rr\n\n");
-	rr(&env);
-	ft_printf("after operations:\n");
-	printf("stack A len = %zu\n", stack_len(env.node, env.head_a));
-	printf("stack B len = %zu\n", stack_len(env.node, env.head_b));
-	ft_printf("stack A:\n\n");
-	print_stack(env.node, env.head_a);
-	ft_printf("stack B:\n\n");
-	print_stack(env.node, env.head_b);
-
+	{
+		if (env.node)
+		{
+			free(env.node);
+			env.node = NULL;
+		}
+		return (0);
+	}
+	compress_values(&env);
+	if (argc < 6)
+		mini_sort(&env, argc - 1);
+	else
+		radix_sort(&env, argc - 1);
 	return (0);
 }

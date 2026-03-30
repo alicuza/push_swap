@@ -6,7 +6,7 @@
 #    By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/26 16:11:32 by sancuta           #+#    #+#              #
-#    Updated: 2026/03/29 13:16:27 by sancuta          ###   ########.fr        #
+#    Updated: 2026/03/30 01:40:58 by sancuta          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,13 @@ CC = cc
 CFLAGS = -MMD -MP -Wall -Wextra -Werror
 LIBFT = ./libft/libft.a
 SRCS =	main.c \
-		operations.c \
-		operation_helpers.c \
+		stack_utils.c \
+		op_swap.c \
+		op_push.c \
+		op_rotate.c \
+		op_revrotate.c \
+		mini_sort.c \
+		radix.c \
 		cleanup.c
 OBJS = $(SRCS:.c=.o)
 DEPS = $(SRCS:.c=.d)

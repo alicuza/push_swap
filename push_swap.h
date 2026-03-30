@@ -6,7 +6,7 @@
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 11:47:24 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/29 13:33:44 by sancuta          ###   ########.fr       */
+/*   Updated: 2026/03/30 01:39:56 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@
 
 typedef size_t			t_stack_idx;
 typedef size_t			t_node_idx;
-typedef unsigned int	t_uint;
 
 typedef struct s_node
 {
 	t_node_idx	next;
 	t_node_idx	prev;
 	int			nbr;
+	int			rank;
 }	t_node;
 
 typedef struct s_env
@@ -49,9 +49,12 @@ void	rotate(t_node *node, t_stack_idx *head);
 void	ra(t_env *env);
 void	rb(t_env *env);
 void	rr(t_env *env);
-void	reverse_rotate(t_node *node, t_stack_idx *head);
+void	rev_rotate(t_node *node, t_stack_idx *head);
 void	rra(t_env *env);
 void	rrb(t_env *env);
 void	rrr(t_env *env);
+void	compress_values(t_env *env);
+void	mini_sort(t_env *env, int len);
+void	radix_sort(t_env *env, int len);
 void	cleanup(t_node *nodes);
 #endif
