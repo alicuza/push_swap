@@ -6,7 +6,7 @@
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 10:27:29 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/30 16:28:55 by sancuta          ###   ########.fr       */
+/*   Updated: 2026/03/30 17:01:07 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,31 +53,35 @@ size_t	sig_digits_strlen(const char *nbr)
 	return (j);
 }
 
-void	parse_argv(t_env *env, int argc, char **argv)
+void	fill_value(t_env *env, char **argv, int idx)
 {
-	int		i;
 	size_t	len;
 
-	i = 1;
-	len = sig_digits_strlen(argv[1]);
+	len = sig_digits_strlen(argv[idx]);
 	if (!(0 < len && len < 11))
 		cleanup(env->node, "Error\n", EXIT_FAILURE);
-	env->node[1].nbr = validate_int(env, ft_atol(argv[1]), 1);
+	env->node[idx].nbr = validate_int(env, ft_atol(argv[idx]), idx);
+}
+
+void	parse_argv(t_env *env, int argc, char **argv)
+{
+	int	i;
+
+	fill_value(env, argv, 1);
 	env->node[1].next = 2;
 	env->node[1].prev = argc - 1;
-	while (++i < argc - 1)
+	i = 2;
+	while (i < argc - 1)
 	{
-		len = sig_digits_strlen(argv[i]);
-		if (!(0 < len && len < 10))
-			cleanup(env->node, "Error\n", EXIT_FAILURE);
-		env->node[i].nbr = validate_int(env, ft_atol(argv[i]), i);
+		fill_value(env, argv, i);
 		env->node[i].next = i + 1;
 		env->node[i].prev = i - 1;
+		i++;
 	}
-	len = sig_digits_strlen(argv[i]);
-	if (!(0 < len && len < 10))
-		cleanup(env->node, "Error\n", EXIT_FAILURE);
-	env->node[i].nbr = validate_int(env, ft_atol(argv[i]), i);
-	env->node[i].next = 1;
-	env->node[i].prev = argc - 2;
+	if (i > 2)
+	{
+		fill_value(env, argv, i);
+		env->node[i].next = 1;
+		env->node[i].prev = argc - 1;
+	}
 }
