@@ -6,13 +6,13 @@
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 01:23:08 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/30 01:24:26 by sancuta          ###   ########.fr       */
+/*   Updated: 2026/03/30 02:23:18 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	swap(t_node *node, t_stack_idx *head)
+int	swap(t_node *node, t_stack_idx *head)
 {
 	t_stack_idx	first;
 	t_stack_idx	second;
@@ -20,7 +20,7 @@ void	swap(t_node *node, t_stack_idx *head)
 
 	len = stack_len(node, *head);
 	if (len < 2)
-		return ;
+		return (0);
 	first = *head;
 	second = node[first].next;
 	node[node[second].next].prev = first;
@@ -30,23 +30,23 @@ void	swap(t_node *node, t_stack_idx *head)
 	node[second].next = first;
 	node[first].prev = second;
 	*head = second;
+	return (1);
 }
 
 void	sa(t_env *env)
 {
-	swap(env->node, &env->head_a);
-	ft_printf("sa\n");
+	if (swap(env->node, &env->head_a))
+		ft_printf("sa\n");
 }
 
 void	sb(t_env *env)
 {
-	swap(env->node, &env->head_b);
-	ft_printf("sb\n");
+	if (swap(env->node, &env->head_b))
+		ft_printf("sb\n");
 }
 
 void	ss(t_env *env)
 {
-	swap(env->node, &env->head_a);
-	swap(env->node, &env->head_b);
-	ft_printf("ss\n");
+	if (swap(env->node, &env->head_a) && swap(env->node, &env->head_b))
+		ft_printf("ss\n");
 }
