@@ -6,7 +6,7 @@
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 12:04:26 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/30 10:31:27 by sancuta          ###   ########.fr       */
+/*   Updated: 2026/03/30 11:11:58 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	init_nodes(t_env *env, int argc)
 {
 	env->node = malloc(argc * sizeof(t_node));
 	if (!env->node)
-		just_error();
+		cleanup(env->node, "Error\n", EXIT_FAILURE);
 	ft_memset(env->node, 0, argc * sizeof(t_node));
 }
 

@@ -6,7 +6,7 @@
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 01:31:28 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/30 10:32:04 by sancuta          ###   ########.fr       */
+/*   Updated: 2026/03/30 11:12:21 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,10 @@ void	mini_sort(t_env *env, int len)
 		return ;
 	}
 	if (len == 3)
-		return (sort_three(env));
+	{
+		sort_three(env);
+		return ;
+	}
 	while (len > 3)
 	{
 		rotate_to_top(env, find_min_pos(env), len);
