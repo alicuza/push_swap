@@ -6,7 +6,7 @@
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 12:04:26 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/30 11:20:26 by sancuta          ###   ########.fr       */
+/*   Updated: 2026/03/30 14:44:05 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	main(int argc, char **argv)
 	if (is_start_sorted(env, argc))
 		cleanup(env.node, "", EXIT_SUCCESS);
 	assign_rank(&env);
-	if (argc < 6)
+	if (argc < 7)
 		mini_sort(&env, argc - 1);
 	else
 	{
