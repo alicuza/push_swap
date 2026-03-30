@@ -6,7 +6,7 @@
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 10:27:29 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/30 17:01:07 by sancuta          ###   ########.fr       */
+/*   Updated: 2026/03/30 17:14:59 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,17 +71,17 @@ void	parse_argv(t_env *env, int argc, char **argv)
 	env->node[1].next = 2;
 	env->node[1].prev = argc - 1;
 	i = 2;
-	while (i < argc - 1)
+	while (i < argc - 2)
 	{
 		fill_value(env, argv, i);
 		env->node[i].next = i + 1;
 		env->node[i].prev = i - 1;
-		i++;
+		++i;
 	}
 	if (i > 2)
 	{
 		fill_value(env, argv, i);
 		env->node[i].next = 1;
-		env->node[i].prev = argc - 1;
+		env->node[i].prev = argc - 2;
 	}
 }
