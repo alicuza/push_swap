@@ -6,23 +6,11 @@
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 01:24:45 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/30 10:32:25 by sancuta          ###   ########.fr       */
+/*   Updated: 2026/03/30 14:10:57 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	pa(t_env *env)
-{
-	if (push(env->node, &env->head_a, &env->head_b))
-		ft_printf("pa\n");
-}
-
-void	pb(t_env *env)
-{
-	if (push(env->node, &env->head_b, &env->head_a))
-		ft_printf("pb\n");
-}
 
 int	pop_node(t_node *node, t_stack_idx *src)
 {
@@ -67,4 +55,16 @@ int	push(t_node *node, t_stack_idx *dest, t_stack_idx *src)
 	if (pop_node(node, src) && push_node(node, dest, old_src))
 		return (1);
 	return (0);
+}
+
+void	pa(t_env *env)
+{
+	if (push(env->node, &env->head_a, &env->head_b))
+		ft_printf("pa\n");
+}
+
+void	pb(t_env *env)
+{
+	if (push(env->node, &env->head_b, &env->head_a))
+		ft_printf("pb\n");
 }

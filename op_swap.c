@@ -6,7 +6,7 @@
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 01:23:08 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/30 09:03:37 by sancuta          ###   ########.fr       */
+/*   Updated: 2026/03/30 11:42:34 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,10 @@ void	sb(t_env *env)
 
 void	ss(t_env *env)
 {
-	if (swap(env->node, &env->head_a) && swap(env->node, &env->head_b))
-		ft_printf("ss\n");
+	if (stack_len(env->node, env->head_a) < 2
+		|| stack_len(env->node, env->head_b) < 2)
+		return ;
+	swap(env->node, &env->head_a);
+	swap(env->node, &env->head_b);
+	ft_printf("ss\n");
 }
