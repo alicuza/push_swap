@@ -6,7 +6,7 @@
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 01:31:28 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/30 11:12:21 by sancuta          ###   ########.fr       */
+/*   Updated: 2026/03/30 15:57:55 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ void	sort_three(t_env *env)
 		sa(env);
 }
 
-int	find_min_pos(t_env *env)
+size_t	find_min_pos(t_env *env)
 {
 	t_node_idx	cur;
+	size_t		pos;
+	size_t		i;
 	int			min;
-	int			pos;
-	int			i;
 	int			first;
 
 	cur = env->head_a;

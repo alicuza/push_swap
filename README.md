@@ -103,6 +103,7 @@ nothing and exits successfully.
   does not work.
 - The large-input strategy is radix-based (great for reliability; but slower than
   greedier approaches and not fit to sort under 6 elements).
+- guaranteed to work properly in bash, no other shells supported atm.
 
 ---
 
@@ -215,10 +216,11 @@ All exits funnel into `cleanup`, which:
 
 #### Special Thanks To
 - _knajmech_, who has talked so much about `push_swap`, that I pretty much knew already how
-  to do it before starting. Our conversations are fun.
+  to do it before starting. Our conversations are fun. Also for finding the last bug. xoxo
 - _asadik_, for lighting a fire under my ass with his impressive work ethic lately.
 - _stmuller_, who spends time with me and sends me home, when I underestimate how late it is.
-- _mprokope_, who is like a son, that I can be very proud of.
+- _mprokope_, who is like a son, that I can be very proud of. Thx for helping me with the
+  actually last BUG.
 - _bastalze_, for permitting me to bother her with my suggestions and debugging attempts.
 - _fkruger_, because I learn so much from him, especially when he is evaluating.
 - _rheidary_, for indulging me when I talk about arenas and other stuff nobody else seems to

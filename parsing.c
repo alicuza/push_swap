@@ -6,7 +6,7 @@
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 10:27:29 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/30 10:33:14 by sancuta          ###   ########.fr       */
+/*   Updated: 2026/03/30 16:28:55 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,28 +30,54 @@ int	validate_int(t_env *env, long n, int idx)
 	return (int_n);
 }
 
+size_t	sig_digits_strlen(const char *nbr)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	while (ft_isspace(nbr[i]))
+		++i;
+	if (ft_issign(nbr[i]))
+		++i;
+	while (nbr[i] == '0')
+		++i;
+	j = 0;
+	while (nbr[i])
+	{
+		if (!ft_isdigit(nbr[i]))
+			return (0);
+		++j;
+		++i;
+	}
+	return (j);
+}
+
 void	parse_argv(t_env *env, int argc, char **argv)
 {
-	int	i;
+	int		i;
+	size_t	len;
 
-	if (ft_strlen(argv[1]) > 12 || !ft_is_nbr_str(argv[1]))
+	i = 1;
+	len = sig_digits_strlen(argv[1]);
+	if (!(0 < len && len < 11))
 		cleanup(env->node, "Error\n", EXIT_FAILURE);
 	env->node[1].nbr = validate_int(env, ft_atol(argv[1]), 1);
 	env->node[1].next = 2;
 	env->node[1].prev = argc - 1;
-	i = 1;
 	while (++i < argc - 1)
 	{
-		if (ft_strlen(argv[i]) > 12 || !ft_is_nbr_str(argv[i]))
+		len = sig_digits_strlen(argv[i]);
+		if (!(0 < len && len < 10))
 			cleanup(env->node, "Error\n", EXIT_FAILURE);
 		env->node[i].nbr = validate_int(env, ft_atol(argv[i]), i);
 		env->node[i].next = i + 1;
 		env->node[i].prev = i - 1;
 	}
-	if (ft_strlen(argv[argc - 1]) > 12 || !ft_is_nbr_str(argv[argc - 1]))
+	len = sig_digits_strlen(argv[i]);
+	if (!(0 < len && len < 10))
 		cleanup(env->node, "Error\n", EXIT_FAILURE);
-	env->node[argc - 1].nbr = validate_int(env, ft_atol(argv[argc - 1]),
-			argc - 1);
-	env->node[argc - 1].next = 1;
-	env->node[argc - 1].prev = argc - 2;
+	env->node[i].nbr = validate_int(env, ft_atol(argv[i]), i);
+	env->node[i].next = 1;
+	env->node[i].prev = argc - 2;
 }

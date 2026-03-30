@@ -6,7 +6,7 @@
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 12:04:26 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/30 14:44:05 by sancuta          ###   ########.fr       */
+/*   Updated: 2026/03/30 15:19:14 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	main(int argc, char **argv)
 {
 	t_env	env;
 
-	if (argc <= 2)
+	if (argc < 2)
 		return (0);
 	env = init_env(argc);
 	parse_argv(&env, argc, argv);
