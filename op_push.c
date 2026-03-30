@@ -6,7 +6,7 @@
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 01:24:45 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/30 02:28:35 by sancuta          ###   ########.fr       */
+/*   Updated: 2026/03/30 02:34:37 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	pop_node(t_node *node, t_stack_idx *src)
 	if (src_len == 1)
 	{
 		*src = 0;
-		return (0);
+		return (1);
 	}
 	node[node[*src].prev].next = node[*src].next;
 	node[node[*src].next].prev = node[*src].prev;
