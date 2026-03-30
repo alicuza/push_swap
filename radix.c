@@ -6,13 +6,13 @@
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 01:35:29 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/30 01:35:52 by sancuta          ###   ########.fr       */
+/*   Updated: 2026/03/30 08:46:08 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	compress_values(t_env *env)
+void	assign_rank(t_env *env)
 {
 	t_node_idx	cur;
 	t_node_idx	cmp;

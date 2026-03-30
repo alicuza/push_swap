@@ -6,7 +6,7 @@
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 01:23:08 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/30 02:23:18 by sancuta          ###   ########.fr       */
+/*   Updated: 2026/03/30 09:03:37 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@ int	swap(t_node *node, t_stack_idx *head)
 	len = stack_len(node, *head);
 	if (len < 2)
 		return (0);
+	if (len == 2)
+	{
+		rotate(node, head);
+		return (1);
+	}
 	first = *head;
 	second = node[first].next;
 	node[node[second].next].prev = first;

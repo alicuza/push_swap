@@ -6,7 +6,7 @@
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 11:47:24 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/30 02:27:36 by sancuta          ###   ########.fr       */
+/*   Updated: 2026/03/30 08:42:01 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ int		rev_rotate(t_node *node, t_stack_idx *head);
 void	rra(t_env *env);
 void	rrb(t_env *env);
 void	rrr(t_env *env);
-void	compress_values(t_env *env);
+void	assign_rank(t_env *env);
 void	mini_sort(t_env *env, int len);
 void	radix_sort(t_env *env, int len);
-void	cleanup(t_node *nodes);
+void	cleanup(t_node *nodes, char *msg, int status);
 #endif

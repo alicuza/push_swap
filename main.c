@@ -6,7 +6,7 @@
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 12:04:26 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/30 01:34:02 by sancuta          ###   ########.fr       */
+/*   Updated: 2026/03/30 08:59:06 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ int	validate_int(t_env *env, long n, int idx)
 	int	int_n;
 
 	if (INT_MIN > n || n > INT_MAX)
-		cleanup(env->node);
+		cleanup(env->node, "Error\n", EXIT_FAILURE);
 	int_n = (int)n;
 	i = 1;
 	while (i < idx)
 	{
 		if (int_n == env->node[i].nbr)
-			cleanup(env->node);
+			cleanup(env->node, "Error\n", EXIT_FAILURE);
 		i++;
 	}
 	return (int_n);
@@ -54,7 +54,7 @@ void	parse_argv(t_env *env, int argc, char **argv)
 	int	i;
 
 	if (ft_strlen(argv[1]) > 12 || !ft_is_nbr_str(argv[1]))
-		cleanup(env->node);
+		cleanup(env->node, "Error\n", EXIT_FAILURE);
 	env->node[1].nbr = validate_int(env, ft_atol(argv[1]), 1);
 	env->node[1].next = 2;
 	env->node[1].prev = argc - 1;
@@ -62,27 +62,24 @@ void	parse_argv(t_env *env, int argc, char **argv)
 	while (++i < argc - 1)
 	{
 		if (ft_strlen(argv[i]) > 12 || !ft_is_nbr_str(argv[i]))
-			cleanup(env->node);
+			cleanup(env->node, "Error\n", EXIT_FAILURE);
 		env->node[i].nbr = validate_int(env, ft_atol(argv[i]), i);
 		env->node[i].next = i + 1;
 		env->node[i].prev = i - 1;
 	}
 	if (ft_strlen(argv[argc - 1]) > 12 || !ft_is_nbr_str(argv[argc - 1]))
-		cleanup(env->node);
+		cleanup(env->node, "Error\n", EXIT_FAILURE);
 	env->node[argc - 1].nbr = validate_int(env, ft_atol(argv[argc - 1]),
 			argc - 1);
 	env->node[argc - 1].next = 1;
 	env->node[argc - 1].prev = argc - 2;
 }
 
-int	is_stack_sorted(t_env env, int argc)
-// TODO: consider replacing this function in main with a LIS (Longest Increasing
-// Subsequence) function if reasonable. If the LIS I find is as long as the
-// stack, I know the stack is sorted. Should I use LIS to also push from b to a?
+int	is_start_sorted(t_env env, int argc)
 {
 	int	i;
 
-	i = 1;
+	i = 2;
 	while (i < argc)
 	{
 		if (env.node[i].nbr < env.node[i - 1].nbr)
@@ -97,23 +94,18 @@ int	main(int argc, char **argv)
 {
 	t_env	env;
 
-	if (argc < 3)
+	if (argc < 2)
 		return (1);
+	if (argc == 2)
+		return (0);
 	env = init_env(argc);
 	parse_argv(&env, argc, argv);
-	if (is_stack_sorted(env, argc))
-	{
-		if (env.node)
-		{
-			free(env.node);
-			env.node = NULL;
-		}
-		return (0);
-	}
-	compress_values(&env);
+	if (is_start_sorted(env, argc))
+		cleanup(env.node, "", EXIT_SUCCESS);
+	assign_rank(&env);
 	if (argc < 6)
 		mini_sort(&env, argc - 1);
 	else
 		radix_sort(&env, argc - 1);
-	return (0);
+	cleanup(env.node, "", EXIT_SUCCESS);
 }
