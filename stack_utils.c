@@ -6,7 +6,7 @@
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 01:15:02 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/30 10:34:28 by sancuta          ###   ########.fr       */
+/*   Updated: 2026/03/30 10:36:31 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	print_stack(t_node *node, t_stack_idx head)
 	while (cur != head)
 	{
 		ft_printf("node[%d] = {\n\tnbr = %d;\n\tnext = %u;\n\tprev = %u;\n}\n",
-				cur, node[cur].nbr, node[cur].next, node[cur].prev);
+			cur, node[cur].nbr, node[cur].next, node[cur].prev);
 		cur = node[cur].next;
 	}
 }
