@@ -6,7 +6,7 @@
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 01:25:55 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/30 02:30:47 by sancuta          ###   ########.fr       */
+/*   Updated: 2026/03/30 02:38:46 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	rotate(t_node *node, t_stack_idx *head)
 {
-	if (!node[*head].next)
+	if (!node[*head].next || node[*head].next == *head)
 		return (0);
 	*head = node[*head].next;
 	return (1);
