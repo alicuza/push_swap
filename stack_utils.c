@@ -6,7 +6,7 @@
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 01:15:02 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/30 01:36:28 by sancuta          ###   ########.fr       */
+/*   Updated: 2026/03/30 10:34:28 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 size_t	stack_len(t_node *node, t_stack_idx head)
 {
 	t_stack_idx	cur;
-	size_t	i;
+	size_t		i;
 
 	if (!node[head].next)
 		return (0);
@@ -29,7 +29,7 @@ size_t	stack_len(t_node *node, t_stack_idx head)
 	return (i);
 }
 
-void print_stack(t_node *node, t_stack_idx head)
+void	print_stack(t_node *node, t_stack_idx head)
 {
 	t_stack_idx	cur;
 
@@ -40,7 +40,7 @@ void print_stack(t_node *node, t_stack_idx head)
 	}
 	cur = head;
 	ft_printf("node[%d] = {\n\tnbr = %d;\n\tnext = %u;\n\tprev = %u;\n}\n",
-			cur, node[cur].nbr, node[cur].next, node[cur].prev);
+		cur, node[cur].nbr, node[cur].next, node[cur].prev);
 	cur = node[cur].next;
 	while (cur != head)
 	{

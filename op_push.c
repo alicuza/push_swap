@@ -6,7 +6,7 @@
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 01:24:45 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/30 10:16:52 by sancuta          ###   ########.fr       */
+/*   Updated: 2026/03/30 10:32:25 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	pb(t_env *env)
 
 int	pop_node(t_node *node, t_stack_idx *src)
 {
-	size_t src_len;
+	size_t	src_len;
 
 	src_len = stack_len(node, *src);
 	if (!src_len)

@@ -6,7 +6,7 @@
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 01:31:28 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/30 01:42:13 by sancuta          ###   ########.fr       */
+/*   Updated: 2026/03/30 10:32:04 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	mini_sort(t_env *env, int len)
 	if (len == 2)
 	{
 		if (env->node[env->head_a].nbr
-				> env->node[env->node[env->head_a].next].nbr)
+			>env->node[env->node[env->head_a].next].nbr)
 			sa(env);
 		return ;
 	}
