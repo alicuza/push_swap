@@ -6,7 +6,7 @@
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 10:27:29 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/30 17:25:13 by sancuta          ###   ########.fr       */
+/*   Updated: 2026/03/30 17:40:43 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ size_t	sig_digits_strlen(const char *nbr)
 		++i;
 	if (ft_issign(nbr[i]))
 		++i;
-	while (nbr[i] == '0')
+	while (nbr[i] == '0' && ft_isdigit(nbr[i + 1]))
 		++i;
 	j = 0;
 	while (nbr[i])
