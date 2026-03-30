@@ -44,11 +44,11 @@ This implementation:
 
 ### Compilation
 
-- `make` or `make all` — compiles `pipex`;
-- `make clean` — removes object and dependency files;
-- `make fclean` — additionally removes the binary and libs;
-- `make re` — recompiles the entire project from scratch;
-- `make debug` — compiles with the `-g` flag for debugging;
+- `make` or `make all`: compiles `push_swap`;
+- `make clean`: removes object and dependency files;
+- `make fclean`: additionally removes the binary and libs;
+- `make re`: recompiles the entire project from scratch;
+- `make debug`: compiles with the `-g` flag for debugging;
 
 **Dependencies:**
 - libft (bundled)
