@@ -36,6 +36,7 @@ This implementation:
   - [Error Handling and Cleanup](#error-handling-and-cleanup)
 - [Resources](#resources)
   - [Documentation and References](#documentation-and-references)
+  	- [Special Thanks To](#special-thanks-to)
   - [AI Usage](#ai-usage)
 
 ---
@@ -109,7 +110,7 @@ nothing and exits successfully.
 
 ### Architecture Overview
 
-1. Initialize an environment (`t_env`) and allocate nodes for stacks.
+1. Initialize an environment (`t_env`) and allocate nodes (`t_node`) for stacks.
 2. Parse and validate `argv` into stack A.
 3. If already sorted: exit cleanly.
 4. Assign ranks to values.
@@ -196,7 +197,7 @@ stable-partitions the elements between stacks A and B based on the current bit.
 
 ### Error Handling and Cleanup
 
-All exits funnel into `cleanup()`, which:
+All exits funnel into `cleanup`, which:
 - frees allocated memory
 - prints an error message when appropriate
 - exits with the given status
@@ -211,6 +212,17 @@ All exits funnel into `cleanup()`, which:
 - [Big O Notation and Time Complexity](https://en.wikipedia.org/wiki/Time_complexity)
 - [Radix Sort](https://notes.devnyxie.com/0-Notes/c/radix)
 - [Bitwise Radix Sort](https://en.wikipedia.org/wiki/Radix_sort#In-place_MSD_radix_sort_implementations)
+
+#### Special Thanks To
+- _knajmech_, who has talked so much about `push_swap`, that I pretty much knew already how
+  to do it before starting. Our conversations are fun.
+- _asadik_, for lighting a fire under my ass with his impressive work ethic lately.
+- _stmuller_, who spends time with me and sends me home, when I underestimate how late it is.
+- _mprokope_, who is like a son, that I can be very proud of.
+- _bastalze_, for permitting me to bother her with my suggestions and debugging attempts.
+- _fkruger_, because I learn so much from him, especially when he is evaluating.
+- _rheidary_, for indulging me when I talk about arenas and other stuff nobody else seems to
+  be doing.
 
 ### AI Usage
 
