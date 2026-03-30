@@ -1,0 +1,638 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cleanup.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/29 13:16:37 by sancuta           #+#    #+#             */
+/*   Updated: 2026/03/30 08:43:56 by sancuta          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "push_swap.h"
+
+void	cleanup(t_node *nodes, char *msg, int status)
+{
+	if (nodes)
+	{
+		free(nodes);
+		nodes = NULL;
+	}
+	if (msg)
+		write(2, msg, ft_strlen(msg));
+	exit(status);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/25 12:04:26 by sancuta           #+#    #+#             */
+/*   Updated: 2026/03/30 08:59:06 by sancuta          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "push_swap.h"
+#include <stdio.h>
+
+void	init_nodes(t_env *env, int argc)
+{
+	env->node = malloc(argc * sizeof(t_node));
+	if (!env->node)
+		just_error();
+	ft_memset(env->node, 0, argc * sizeof(t_node));
+}
+
+t_env	init_env(int argc)
+{
+	t_env	env;
+
+	env = (t_env){0};
+	init_nodes(&env, argc);
+	env.head_a = 1;
+	env.head_b = 0;
+	return (env);
+}
+int	validate_int(t_env *env, long n, int idx)
+{
+	int	i;
+	int	int_n;
+
+	if (INT_MIN > n || n > INT_MAX)
+		cleanup(env->node, "Error\n", EXIT_FAILURE);
+	int_n = (int)n;
+	i = 1;
+	while (i < idx)
+	{
+		if (int_n == env->node[i].nbr)
+			cleanup(env->node, "Error\n", EXIT_FAILURE);
+		i++;
+	}
+	return (int_n);
+}
+
+void	parse_argv(t_env *env, int argc, char **argv)
+{
+	int	i;
+
+	if (ft_strlen(argv[1]) > 12 || !ft_is_nbr_str(argv[1]))
+		cleanup(env->node, "Error\n", EXIT_FAILURE);
+	env->node[1].nbr = validate_int(env, ft_atol(argv[1]), 1);
+	env->node[1].next = 2;
+	env->node[1].prev = argc - 1;
+	i = 1;
+	while (++i < argc - 1)
+	{
+		if (ft_strlen(argv[i]) > 12 || !ft_is_nbr_str(argv[i]))
+			cleanup(env->node, "Error\n", EXIT_FAILURE);
+		env->node[i].nbr = validate_int(env, ft_atol(argv[i]), i);
+		env->node[i].next = i + 1;
+		env->node[i].prev = i - 1;
+	}
+	if (ft_strlen(argv[argc - 1]) > 12 || !ft_is_nbr_str(argv[argc - 1]))
+		cleanup(env->node, "Error\n", EXIT_FAILURE);
+	env->node[argc - 1].nbr = validate_int(env, ft_atol(argv[argc - 1]),
+			argc - 1);
+	env->node[argc - 1].next = 1;
+	env->node[argc - 1].prev = argc - 2;
+}
+
+int	is_start_sorted(t_env env, int argc)
+{
+	int	i;
+
+	i = 2;
+	while (i < argc)
+	{
+		if (env.node[i].nbr < env.node[i - 1].nbr)
+			return (0);
+		++i;
+	}
+	return (1);
+}
+
+//#include <stdio.h> // DEBUG
+int	main(int argc, char **argv)
+{
+	t_env	env;
+
+	if (argc < 2)
+		return (1);
+	if (argc == 2)
+		return (0);
+	env = init_env(argc);
+	parse_argv(&env, argc, argv);
+	if (is_start_sorted(env, argc))
+		cleanup(env.node, "", EXIT_SUCCESS);
+	assign_rank(&env);
+	if (argc < 6)
+		mini_sort(&env, argc - 1);
+	else
+		radix_sort(&env, argc - 1);
+	cleanup(env.node, "", EXIT_SUCCESS);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mini_sort.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/30 01:31:28 by sancuta           #+#    #+#             */
+/*   Updated: 2026/03/30 01:42:13 by sancuta          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "push_swap.h"
+
+void	sort_three(t_env *env)
+{
+	int	a;
+	int	b;
+	int	c;
+
+	a = env->node[env->head_a].nbr;
+	b = env->node[env->node[env->head_a].next].nbr;
+	c = env->node[env->node[env->node[env->head_a].next].next].nbr;
+	if (a < b && b < c)
+		return ;
+	if (a > b && a > c)
+		ra(env);
+	else if (b > a && b > c)
+		rra(env);
+	a = env->node[env->head_a].nbr;
+	b = env->node[env->node[env->head_a].next].nbr;
+	if (a > b)
+		sa(env);
+}
+
+int	find_min_pos(t_env *env)
+{
+	t_node_idx	cur;
+	int			min;
+	int			pos;
+	int			i;
+	int			first;
+
+	cur = env->head_a;
+	min = env->node[cur].nbr;
+	pos = 0;
+	i = 0;
+	first = 1;
+	while (cur != env->head_a || first)
+	{
+		first = 0;
+		if (env->node[cur].nbr < min)
+		{
+			min = env->node[cur].nbr;
+			pos = i;
+		}
+		cur = env->node[cur].next;
+		++i;
+	}
+	return (pos);
+}
+
+void	rotate_to_top(t_env *env, int pos, int len)
+{
+	int	i;
+
+	if (pos * 2 <= len)
+	{
+		i = -1;
+		while (++i < pos)
+			ra(env);
+		return ;
+	}
+	i = -1;
+	while (++i < len - pos)
+		rra(env);
+}
+
+void	mini_sort(t_env *env, int len)
+{
+	if (len == 2)
+	{
+		if (env->node[env->head_a].nbr
+				> env->node[env->node[env->head_a].next].nbr)
+			sa(env);
+		return ;
+	}
+	if (len == 3)
+		return (sort_three(env));
+	while (len > 3)
+	{
+		rotate_to_top(env, find_min_pos(env), len);
+		pb(env);
+		--len;
+	}
+	sort_three(env);
+	while (env->head_b)
+		pa(env);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   op_push.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/30 01:24:45 by sancuta           #+#    #+#             */
+/*   Updated: 2026/03/30 02:34:37 by sancuta          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "push_swap.h"
+
+void	pa(t_env *env)
+{
+	if (push(env->node, &env->head_a, &env->head_b))
+		ft_printf("pa\n");
+}
+
+void	pb(t_env *env)
+{
+	if (push(env->node, &env->head_b, &env->head_a))
+		ft_printf("pb\n");
+}
+
+int	pop_node(t_node *node, t_stack_idx *src)
+{
+	size_t src_len;
+
+	src_len = stack_len(node, *src);
+	if (!src_len)
+		return (0);
+	if (src_len == 1)
+	{
+		*src = 0;
+		return (1);
+	}
+	node[node[*src].prev].next = node[*src].next;
+	node[node[*src].next].prev = node[*src].prev;
+	*src = node[*src].next;
+	return (1);
+}
+
+int	push_node(t_node *node, t_stack_idx *dest, t_stack_idx src)
+{
+	if (!stack_len(node, *dest))
+	{
+		node[src].next = src;
+		node[src].prev = src;
+		*dest = src;
+		return (0);
+	}
+	node[src].next = *dest;
+	node[src].prev = node[*dest].prev;
+	node[node[*dest].prev].next = src;
+	node[*dest].prev = src;
+	*dest = src;
+	return (1);
+}
+
+int	push(t_node *node, t_stack_idx *dest, t_stack_idx *src)
+{
+	t_stack_idx	old_src;
+
+	old_src = *src;
+	if (pop_node(node, src) && push_node(node, dest, old_src))
+		return (1);
+	return (0);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   op_revrotate.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/30 01:27:24 by sancuta           #+#    #+#             */
+/*   Updated: 2026/03/30 02:38:54 by sancuta          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "push_swap.h"
+
+int	rev_rotate(t_node *node, t_stack_idx *head)
+{
+	if (!node[*head].prev || node[*head].next == *head)
+		return (0);
+	*head = node[*head].prev;
+	return (1);
+}
+
+void rra(t_env *env)
+{
+	if (rev_rotate(env->node, &env->head_a))
+		ft_printf("rra\n");
+}
+
+void rrb(t_env *env)
+{
+	if (rev_rotate(env->node, &env->head_b))
+		ft_printf("rrb\n");
+}
+
+void rrr(t_env *env)
+{
+	if (rev_rotate(env->node, &env->head_a)
+			&& rev_rotate(env->node, &env->head_b))
+		ft_printf("rrr\n");
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   op_rotate.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/30 01:25:55 by sancuta           #+#    #+#             */
+/*   Updated: 2026/03/30 02:38:46 by sancuta          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "push_swap.h"
+
+int	rotate(t_node *node, t_stack_idx *head)
+{
+	if (!node[*head].next || node[*head].next == *head)
+		return (0);
+	*head = node[*head].next;
+	return (1);
+}
+
+void ra(t_env *env)
+{
+	if (rotate(env->node, &env->head_a))
+		ft_printf("ra\n");
+}
+
+void rb(t_env *env)
+{
+	if (rotate(env->node, &env->head_b))
+		ft_printf("rb\n");
+}
+
+void rr(t_env *env)
+{
+	if (rotate(env->node, &env->head_a) && rotate(env->node, &env->head_b))
+		ft_printf("rr\n");
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   op_swap.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/30 01:23:08 by sancuta           #+#    #+#             */
+/*   Updated: 2026/03/30 09:03:37 by sancuta          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "push_swap.h"
+
+int	swap(t_node *node, t_stack_idx *head)
+{
+	t_stack_idx	first;
+	t_stack_idx	second;
+	size_t		len;
+
+	len = stack_len(node, *head);
+	if (len < 2)
+		return (0);
+	if (len == 2)
+	{
+		rotate(node, head);
+		return (1);
+	}
+	first = *head;
+	second = node[first].next;
+	node[node[second].next].prev = first;
+	node[first].next = node[second].next;
+	node[node[first].prev].next = second;
+	node[second].prev = node[first].prev;
+	node[second].next = first;
+	node[first].prev = second;
+	*head = second;
+	return (1);
+}
+
+void	sa(t_env *env)
+{
+	if (swap(env->node, &env->head_a))
+		ft_printf("sa\n");
+}
+
+void	sb(t_env *env)
+{
+	if (swap(env->node, &env->head_b))
+		ft_printf("sb\n");
+}
+
+void	ss(t_env *env)
+{
+	if (swap(env->node, &env->head_a) && swap(env->node, &env->head_b))
+		ft_printf("ss\n");
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   radix.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/30 01:35:29 by sancuta           #+#    #+#             */
+/*   Updated: 2026/03/30 08:46:08 by sancuta          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "push_swap.h"
+
+void	assign_rank(t_env *env)
+{
+	t_node_idx	cur;
+	t_node_idx	cmp;
+	int			first_out;
+	int			first_in;
+
+	cur = env->head_a;
+	first_out = 1;
+	while (cur != env->head_a || first_out)
+	{
+		first_out = 0;
+		env->node[cur].rank = 0;
+		cmp = env->head_a;
+		first_in = 1;
+		while (cmp != env->head_a || first_in)
+		{
+			first_in = 0;
+			if (env->node[cmp].nbr < env->node[cur].nbr)
+				++env->node[cur].rank;
+			cmp = env->node[cmp].next;
+		}
+		cur = env->node[cur].next;
+	}
+}
+
+static int	max_bits(t_env *env)
+{
+	t_node_idx	cur;
+	int			max;
+	int			bits;
+	int			first;
+
+	cur = env->head_a;
+	max = env->node[cur].rank;
+	bits = 0;
+	first = 1;
+	while (cur != env->head_a || first)
+	{
+		first = 0;
+		if (env->node[cur].rank > max)
+			max = env->node[cur].rank;
+		cur = env->node[cur].next;
+	}
+	while ((max >> bits) != 0)
+		++bits;
+	return (bits);
+}
+
+void	radix_sort(t_env *env, int len)
+{
+	int		i;
+	int		bit;
+	int		bit_cnt;
+
+	bit_cnt = max_bits(env);
+	bit = 0;
+	while (bit < bit_cnt)
+	{
+		i = -1;
+		while (++i < len)
+		{
+			if (!((env->node[env->head_a].rank >> bit) & 1))
+				pb(env);
+			else
+				ra(env);
+		}
+		while (env->head_b)
+			pa(env);
+		++bit;
+	}
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   stack_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/30 01:15:02 by sancuta           #+#    #+#             */
+/*   Updated: 2026/03/30 01:36:28 by sancuta          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "push_swap.h"
+
+size_t	stack_len(t_node *node, t_stack_idx head)
+{
+	t_stack_idx	cur;
+	size_t	i;
+
+	if (!node[head].next)
+		return (0);
+	cur = head;
+	i = 1;
+	while (node[cur].next != head)
+	{
+		++i;
+		cur = node[cur].next;
+	}
+	return (i);
+}
+
+void print_stack(t_node *node, t_stack_idx head)
+{
+	t_stack_idx	cur;
+
+	if (!stack_len(node, head))
+	{
+		ft_printf("stack empty\n");
+		return ;
+	}
+	cur = head;
+	ft_printf("node[%d] = {\n\tnbr = %d;\n\tnext = %u;\n\tprev = %u;\n}\n",
+			cur, node[cur].nbr, node[cur].next, node[cur].prev);
+	cur = node[cur].next;
+	while (cur != head)
+	{
+		ft_printf("node[%d] = {\n\tnbr = %d;\n\tnext = %u;\n\tprev = %u;\n}\n",
+				cur, node[cur].nbr, node[cur].next, node[cur].prev);
+		cur = node[cur].next;
+	}
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/25 11:47:24 by sancuta           #+#    #+#             */
+/*   Updated: 2026/03/30 08:42:01 by sancuta          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef PUSH_SWAP_H
+# define PUSH_SWAP_H
+
+# include "libft/libft.h"
+# include "libft/ft_printf.h"
+# include "libft/arena/arena.h"
+# include <limits.h>
+
+typedef size_t			t_stack_idx;
+typedef size_t			t_node_idx;
+
+typedef struct s_node
+{
+	t_node_idx	next;
+	t_node_idx	prev;
+	int			nbr;
+	int			rank;
+}	t_node;
+
+typedef struct s_env
+{
+	t_node		*node;
+	t_stack_idx	head_a;
+	t_stack_idx	head_b;
+}	t_env;
+
+size_t	stack_len(t_node *node, t_stack_idx head);
+void	print_stack(t_node *node, t_stack_idx head);
+int		swap(t_node *node, t_stack_idx *head);
+void	sa(t_env *env);
+void	sb(t_env *env);
+void	ss(t_env *env);
+int		push(t_node *node, t_stack_idx *dest, t_stack_idx *src);
+void	pa(t_env *env);
+void	pb(t_env *env);
+int		rotate(t_node *node, t_stack_idx *head);
+void	ra(t_env *env);
+void	rb(t_env *env);
+void	rr(t_env *env);
+int		rev_rotate(t_node *node, t_stack_idx *head);
+void	rra(t_env *env);
+void	rrb(t_env *env);
+void	rrr(t_env *env);
+void	assign_rank(t_env *env);
+void	mini_sort(t_env *env, int len);
+void	radix_sort(t_env *env, int len);
+void	cleanup(t_node *nodes, char *msg, int status);
+#endif

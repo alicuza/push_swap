@@ -6,7 +6,7 @@
 #    By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/26 16:11:32 by sancuta           #+#    #+#              #
-#    Updated: 2026/03/30 01:40:58 by sancuta          ###   ########.fr        #
+#    Updated: 2026/03/30 10:29:28 by sancuta          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ CFLAGS = -MMD -MP -Wall -Wextra -Werror
 LIBFT = ./libft/libft.a
 SRCS =	main.c \
 		stack_utils.c \
+		parsing.c \
 		op_swap.c \
 		op_push.c \
 		op_rotate.c \

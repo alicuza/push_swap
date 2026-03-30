@@ -6,7 +6,7 @@
 /*   By: sancuta <sancuta@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 11:47:24 by sancuta           #+#    #+#             */
-/*   Updated: 2026/03/30 10:10:51 by sancuta          ###   ########.fr       */
+/*   Updated: 2026/03/30 10:28:07 by sancuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_env
 
 size_t	stack_len(t_node *node, t_stack_idx head);
 void	print_stack(t_node *node, t_stack_idx head);
+void	parse_argv(t_env *env, int argc, char **argv);
 int		swap(t_node *node, t_stack_idx *head);
 void	sa(t_env *env);
 void	sb(t_env *env);
